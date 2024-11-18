@@ -16,7 +16,6 @@ const uploadFileToApi = async (fileBuffer, fileName, apiUrl) => {
     const result = await response.json();
     return result;
   } catch (error) {
-    console.error('Error uploading file to API:', error);
     throw error;
   }
 };
