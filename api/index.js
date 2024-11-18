@@ -1,6 +1,6 @@
 const FormData = require('form-data');
 
-const uploadFileToApi = async (fileBuffer, fileName, apiUrl) => {
+const uploadFileToApi = async (fileBuffer, fileName) => {
   try {
     const formdata = new FormData();
     formdata.append("fileName", fileName);
@@ -11,11 +11,12 @@ const uploadFileToApi = async (fileBuffer, fileName, apiUrl) => {
       body: formdata,
       headers: formdata.getHeaders(),
     };
-    const response = await fetch(apiUrl, requestOptions);
+    const response = await fetch('https://storage.superapps.if.unismuh.ac.id', requestOptions);
 
     const result = await response.json();
     return result;
   } catch (error) {
+    console.error('Error uploading file to API:', error);
     throw error;
   }
 };

@@ -11,7 +11,7 @@ const {
 } = require('../controllers');
 
 // router.post('/request-document', sendVerificationCode);
-
+  
 // generate document
 router.post('/generate-document/:type', generateDocument);
 
