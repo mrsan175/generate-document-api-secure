@@ -32,17 +32,17 @@ const generateDocument = async (type, data) => {
     };
 
     const imageModule = new ImageModule(imageModuleOpts);
-    const doc = new Docxtemplater()
-      .attachModule(imageModule)
-      .loadZip(zip);
 
-    doc.setData({
+    const doc = new Docxtemplater(zip, {
+      modules: [imageModule],
+    });
+
+
+    doc.render({
       ...data,
       no_surat,
       qrCode: 'qrCode',
     });
-
-    doc.render();
 
     const outputDir = path.resolve(__dirname, '../templates/output');
     if (!fs.existsSync(outputDir)) {
@@ -52,8 +52,9 @@ const generateDocument = async (type, data) => {
     const outputPath = path.join(outputDir, `${time}.docx`);
     const buffer = doc.getZip().generate({ type: 'nodebuffer' });
     fs.writeFileSync(outputPath, buffer);
+    console.log(data)
 
-    return { filePath: outputPath, no_surat: no_surat };
+    return { filePath: outputPath, no_surat: no_surat, qrCode: qrCodePath };
   } catch (error) {
     console.error('Error generating document:', error);
     throw new Error('Gagal membuat dokumen');
@@ -61,4 +62,3 @@ const generateDocument = async (type, data) => {
 };
 
 module.exports = generateDocument;
-

@@ -11,7 +11,7 @@ server.use(cors());
 server.use('/api', route);
 
 server.get('/', (req, res) => {
-  res.send('Welcome to the Document generator API by devnolife');
+  res.send('Welcome to the Document generator API');
 });
 
 server.listen(PORT, () => {

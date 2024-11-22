@@ -21,6 +21,10 @@ async function main() {
             filed: 'Nama Program Studi', // Nama yang muncul di FE
           },
           {
+            field_name: 'nama_ttd',
+            filed: 'Nama Tanda Tangan', // Nama yang muncul di FE
+          },
+          {
             field_name: 'tanggal_hijriyah',
             filed: 'Tanggal Hijriyah', // Nama yang muncul di FE
           },
