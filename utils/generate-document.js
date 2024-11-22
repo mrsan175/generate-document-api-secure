@@ -52,7 +52,6 @@ const generateDocument = async (type, data) => {
     const outputPath = path.join(outputDir, `${time}.docx`);
     const buffer = doc.getZip().generate({ type: 'nodebuffer' });
     fs.writeFileSync(outputPath, buffer);
-    console.log(data)
 
     return { filePath: outputPath, no_surat: no_surat, qrCode: qrCodePath };
   } catch (error) {
