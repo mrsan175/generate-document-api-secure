@@ -7,13 +7,16 @@ const {
   getDocument,
   createDocuments,
   updateDocument,
-  removeDocument
+  removeDocument,
+  validateOtp
 } = require('../controllers');
 
 // router.post('/request-document', sendVerificationCode);
-  
+
+router.get('/validate-otp/:otp', validateOtp);
+
 // generate document
-router.post('/generate-document/:type', generateDocument);
+router.post('/generate-document/:type/:otp', generateDocument);
 
 // document routes
 router.get('/documents', allDocuments);

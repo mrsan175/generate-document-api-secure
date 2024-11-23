@@ -6,12 +6,37 @@ const {
   document,
   editDocument
 } = require('../services/documents');
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
+const validateOtp = async (req, res) => {
+  try {
+    const { otp } = req.params;
+    const result = await prisma.otp.update({
+      where: {
+        otp: otp,
+      },
+      data: {
+        isValid: true,
+      }
+    });
+    if (!result) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'OTP tidak ditemukan'
+      });
+    }
+    res.send('OTP berhasil divalidasi');
+  } catch (error) {
+    res.status(500).send('Server mengalami masalah');
+  }
+}
 
 const generateDocument = async (req, res) => {
   try {
-    const { type } = req.params;
+    const { type, otp } = req.params;
     const data = req.body;
-    const result = await serviceDocument({ type, data });
+    const result = await serviceDocument({ type, otp, data });
     res.json(result);
   } catch (error) {
     res.status(500).send('Server mengalami masalah');
@@ -94,5 +119,6 @@ module.exports = {
   getDocument,
   createDocuments,
   updateDocument,
-  removeDocument
+  removeDocument,
+  validateOtp,
 };
